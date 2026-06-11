@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>PA#1 - WebGL Stereo Camera</title>
+    <style>
+        body {
+            background-color: #EEEEEE;
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        .control-panel {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            width: 570px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .control-group {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .control-group label {
+            font-weight: bold;
+            width: 200px;
+        }
+        .control-group input {
+            width: 300px;
+        }
+    </style>
+
+    <script src="./Utils/trackball-rotator.js"></script>
+    <script src="./Utils/m4.js"></script>
+    <script src="./shader.gpu"></script>
+    <script src="./Model.js"></script>
+    <script src="./StereoCamera.js"></script>
+    <script src="./main.js"></script>
+</head>
+<body onload="init()">
+
+<h2>Methods of Synthesis of Virtual Reality - PA#1</h2>
+<p id="message">Перетягуйте мишу на полотні, щоб обертати фігуру. Одягни червоно-бірюзові окуляри.</p>
+
+<div id="canvas-holder">
+   <canvas width="600" height="600" id="webglcanvas" style="background-color:black"></canvas>
+</div>
+
+<div class="control-panel">
+    <h3>Керування параметрами стереокамери:</h3>
+    
+    <div class="control-group">
+        <label for="eyeSep">Eye Separation (Поділ очей):</label>
+        <input type="range" id="eyeSep" min="0.1" max="2.0" step="0.05" value="0.7" oninput="updateCameraParameters()">
+    </div>
+
+    <div class="control-group">
+        <label for="conv">Convergence (Точка сходження):</label>
+        <input type="range" id="conv" min="5.0" max="50.0" step="0.5" value="14.0" oninput="updateCameraParameters()">
+    </div>
+
+    <div class="control-group">
+        <label for="fov">Field of View (Кут огляду, град):</label>
+        <input type="range" id="fov" min="10" max="90" step="1" value="45" oninput="updateCameraParameters()">
+    </div>
+
+    <div class="control-group">
+        <label for="near">Near Clipping (Близька площина):</label>
+        <input type="range" id="near" min="0.5" max="5.0" step="0.1" value="2.0" oninput="updateCameraParameters()">
+    </div>
+</div>
+
+</body>
+</html>
