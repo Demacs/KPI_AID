@@ -23,18 +23,20 @@ function ShaderProgram(name, program) {
 }
 
 function initWebcam() {
-    videoElement = document.createElement('video');
-    videoElement.autoplay = true;
-    videoElement.muted = true;
-    videoElement.loop = true;
+    videoElement = document.getElementById('webcam-view');
+    
+    if (!videoElement) {
+        console.error("Елемент #webcam-view не знайдено на сторінці!");
+        return;
+    }
 
     navigator.mediaDevices.getUserMedia({ video: true, audio: false })
         .then(function(stream) {
             videoElement.srcObject = stream;
-            videoElement.play();
+            videoElement.play().catch(e => console.log("Автозапуск відео призупинено браузером:", e));
         })
         .catch(function(err) {
-            console.error("Ошибка доступа к веб-камере: ", err);
+            console.error("Помилка доступу до веб-камери: ", err);
         });
 
     videoTexture = gl.createTexture();
